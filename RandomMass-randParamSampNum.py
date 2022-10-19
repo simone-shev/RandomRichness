@@ -54,10 +54,6 @@ def lnpo(mass, min, max, test_fun):
     return -np.inf
   return math.log(test_fun(mass)) #log likelihood is required by emcee
 
-redshift = 0.0
-#sample_num = 100000
-filename = "rs_" + str(redshift) + "_sn_"  + "_mcmc_save.h5"
-print(filename)
 
 def interpolate_MCMC(mass_array_p, mass_arr_log, mfunc, mfunc_n, mass_range, sample_num, redshift):
   """
@@ -150,7 +146,7 @@ def mass_sampling(mass_range, sample_num, params_full, redshift, mdef = '200c', 
   test_func: the likelihood function
   """
  
-  import numpy as np
+
   min, max = mass_range
   mass_arr = np.logspace(min, max, num = 200, base = 10)
   print (params_full[0], params_full[1], params_full[2], params_full[3], params_full[4])
@@ -192,7 +188,7 @@ params_total = np.zeros([num_variations, 8])
 
 for v in range(num_variations):
     
-    #creates a random set of parameters and gets a mass sample from them
+    #creates a random set of parameters and gets a mass sample from them, assigns a redshift that can be changed
     params_full = [np.random.uniform(low = 0.1, high = 0.5), np.random.uniform(low = 0.03, high = 0.07), np.random.uniform(low = 0.5, high = 0.9), np.random.uniform(low = 0.8, high = 1.2), np.random.uniform(low = 0.6, high = 1.0)]
     test_func, mass_chain = mass_sampling(mass_range, sample_num, params_full, redshift = 0.0)
     mass_chain = np.power(10, mass_chain)
